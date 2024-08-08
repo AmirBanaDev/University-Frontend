@@ -1,16 +1,27 @@
+import { useState } from "react";
+import { Form, useActionData } from "react-router-dom";
+import { validate2faForm } from "../JsUtilities/LoginFormValidation";
+
 function Login2faForm({ formLogin }) {
+  const [formErrors, setFormErrors] = useState("");
+  const onSubmitHadler = (event) => {
+    console.log();
+    setFormErrors(null);
+    event.preventDefault();
+    const formData = event.target;
+    const errors = validate2faForm(formData.mobileCode);
+    if (errors.isValid == false) {
+      setFormErrors({ pass });
+    }
+  };
   return (
     <div className="relative bg-white p-8 rounded-lg shadow-lg text-center w-96">
       <h1 className="text-2xl font-bold mb-6">ورود</h1>
-      <form>
+      <Form method="POST">
         <input
           type="password"
+          name="mobileCode"
           placeholder="رمز یکبار مصرف"
-          required
-          pattern="\d{6}"
-          title="6 digits accepted"
-          maxLength="6"
-          minLength="6"
           className="w-full p-2 mb-4 border border-gray-300 rounded"
         />
         <button
@@ -26,9 +37,19 @@ function Login2faForm({ formLogin }) {
         >
           بازگشت
         </button>
-      </form>
+      </Form>
     </div>
   );
 }
 
 export default Login2faForm;
+
+export async function action({request, response}){
+  const formData = await request.formData();
+  const formInput = formData.get("mobileCode");
+  const errors = validate2faForm(formInput);
+    if (errors.isValid == false) {
+      setFormErrors({ pass });
+      return pass;
+    }
+}

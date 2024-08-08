@@ -5,7 +5,7 @@ const login = false;
 function Home() {
   return (
     <>
-      <div></div>
+      <h1>This is Home Page</h1>
     </>
   );
 }
