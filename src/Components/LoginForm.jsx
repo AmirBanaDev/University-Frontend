@@ -1,5 +1,8 @@
 import { Form, useActionData, redirect } from "react-router-dom";
 import { validateLoginForm } from "../JsUtilities/LoginFormValidation";
+import axios from "axios";
+
+const apiUrl = "https://localhost:5000/";
 
 function LoginForm({ form2fa }) {
   const actionData = useActionData();
@@ -10,15 +13,17 @@ function LoginForm({ form2fa }) {
       <Form method="post">
         <input
           type="text"
-          name="phone"
+          name="PhoneNumber"
           placeholder="شماره موبایل"
           className="w-full p-2 mb-4 border border-gray-300 rounded"
+          defaultValue="0961555"
         />
         <input
           type="password"
-          name="password"
+          name="Password"
           placeholder="رمز عبور"
           className="w-full p-2 mb-4 border border-gray-300 rounded"
+          defaultValue="adminadmin"
         />
         <button
           type="submit"
@@ -37,12 +42,20 @@ function LoginForm({ form2fa }) {
         >
           ورود با رمز یکبار مصرف
         </button>
-        {!actionData?.isValid && 
+        {!actionData?.isValid && (
           <ul>
-            {actionData?.phone.map(e => <li key = {e} className = "text-red-600 font-semibold">{e}</li>)}
-            {actionData?.password.map(e => <li key = {e} className = "text-red-600 font-semibold">{e}</li>)}
+            {actionData?.phone.map((e) => (
+              <li key={e} className="text-red-600 font-semibold">
+                {e}
+              </li>
+            ))}
+            {actionData?.password.map((e) => (
+              <li key={e} className="text-red-600 font-semibold">
+                {e}
+              </li>
+            ))}
           </ul>
-        }
+        )}
       </Form>
     </div>
   );
@@ -50,36 +63,61 @@ function LoginForm({ form2fa }) {
 //{isValid: false, phone: Array(1), password: Array(0)}
 export default LoginForm;
 
-export async function action({ request }) {
+export async function action({ request, response }) {
   const formData = await request.formData();
   const intent = formData.get("formBtn");
   if (intent === "code") {
     const errors = validateLoginForm(
-      formData.get("phone"),
-      formData.get("password"),
+      formData.get("PhoneNumber"),
+      formData.get("Password"),
       true
     );
     if (errors.isValid === false) {
       return errors;
     }
-    await getCodeFromServer(formData)
+    getCodeFromServer(formData);
     return redirect("/login/mobilecode");
-  } 
-  else if (intent === "enter") {
+  } else if (intent === "enter") {
     const errors = validateLoginForm(
-      formData.get("phone"),
-      formData.get("password"),
+      formData.get("PhoneNumber"),
+      formData.get("Password"),
       false
     );
     if (errors.isValid === false) {
       return errors;
     }
-    await loginFromServer(formData)
+    const result = loginFromServer(formData);
+    const response = result.then(res => {
+      return {
+        status: res.status,
+        data: res.data
+      }
+    })
+    if (response.status != 200) {
+      console.log("false");
+      console.log(response);
+    } else {
+      console.log("ok");
+      console.log(response);
+    }
+    return null;
   }
 }
+function getCodeFromServer(formData) {}
+async function loginFromServer(formData) {
+  const loginData = Object.fromEntries(formData);
+  const result = axios
+    .post(apiUrl + "api/Account/login", {
+      PhoneNumber: loginData.PhoneNumber,
+      Password: loginData.Password,
+    })
+    .then((r) => {
+      return {
+        status: r.status,
+        data: r.data
+      }
+    })
+    .catch((err) => err);
 
-async function getCodeFromServer(formData){
-  
-}
-async function loginFromServer(formData){
+  return result;
 }

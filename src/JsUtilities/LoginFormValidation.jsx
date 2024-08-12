@@ -4,7 +4,7 @@ export function validateLoginForm(phone, pass, to2faForm) {
     phone: [],
     password: [],
   };
-  if (phone.length != 11) errors.phone.push("شماره باید 11 حرف باشد");
+ // if (phone.length != 11) errors.phone.push("شماره باید 11 حرف باشد");
   if (phone.length != 0 && phone.match(/^[0-9]+$/) == null) errors.phone.push("فقط عدد وارد کنید");
   if (to2faForm == false && pass.length == 0)
     errors.password.push("رمز عبور نباید خالی باشد");
