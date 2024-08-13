@@ -1,4 +1,5 @@
-import { redirect, useLoaderData } from "react-router-dom";
+import { Outlet, redirect, useLoaderData } from "react-router-dom";
+import CourseCard from "../Components/CourseCard";
 
 
 function Home() {
@@ -7,6 +8,7 @@ function Home() {
   return (
     <>
       <h1>This is Home Page</h1>
+      <CourseCard/>
     </>
   );
 }

@@ -8,8 +8,13 @@ import Login2faForm, {
   action as action2fa,
 } from "./Components/Login2faForm.jsx";
 import LoginForm, { action as actionLogin } from "./Components/LoginForm.jsx";
+import Test from "./Routes/Test.jsx"
 
 const router = createBrowserRouter([
+  {
+    path: "/test",
+    element:<Test/>
+  },
   {
     path: "/login",
     children: [
