@@ -6,7 +6,6 @@ const apiUrl = "https://localhost:5000/";
 
 function LoginForm({ form2fa }) {
   const actionData = useActionData();
-  console.log(actionData);
   return (
     <div className="relative bg-white p-8 rounded-lg shadow-lg text-center w-96">
       <h1 className="text-2xl font-bold mb-6">ورود</h1>
@@ -86,38 +85,28 @@ export async function action({ request, response }) {
     if (errors.isValid === false) {
       return errors;
     }
-    const result = loginFromServer(formData);
-    const response = result.then(res => {
-      return {
-        status: res.status,
-        data: res.data
-      }
-    })
-    if (response.status != 200) {
+    const result = await loginFromServer(formData);
+    if (result.status !== 200) {
       console.log("false");
-      console.log(response);
+      console.log(result.data);
     } else {
       console.log("ok");
-      console.log(response);
+      sessionStorage.setItem('auth', JSON.stringify(result.data));
+      return redirect("/")
     }
     return null;
   }
 }
-function getCodeFromServer(formData) {}
+async function getCodeFromServer(formData) {}
 async function loginFromServer(formData) {
   const loginData = Object.fromEntries(formData);
-  const result = axios
-    .post(apiUrl + "api/Account/login", {
+  try{
+    const response = await axios.post(apiUrl + "api/Account/login",{
       PhoneNumber: loginData.PhoneNumber,
-      Password: loginData.Password,
+      Password: loginData.Password
     })
-    .then((r) => {
-      return {
-        status: r.status,
-        data: r.data
-      }
-    })
-    .catch((err) => err);
-
-  return result;
+    return response;
+  }catch(err){
+    console.log(er)
+  }
 }

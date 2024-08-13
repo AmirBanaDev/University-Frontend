@@ -1,8 +1,9 @@
-import { redirect } from "react-router-dom";
+import { redirect, useLoaderData } from "react-router-dom";
 
-const login = false;
 
 function Home() {
+  const loaderData = useLoaderData()
+  console.log(loaderData)
   return (
     <>
       <h1>This is Home Page</h1>
@@ -13,5 +14,12 @@ function Home() {
 export default Home;
 
 export function loader() {
-  return !login && redirect("/login");
+  const user = sessionStorage.getItem("auth")
+  if(!user){
+    return redirect("/login")
+  }
+  else{
+    return user
+  }
+
 }
