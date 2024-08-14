@@ -20,8 +20,5 @@ export function loader() {
   if(!user){
     return redirect("/login")
   }
-  else{
-    return user
-  }
-
+  
 }

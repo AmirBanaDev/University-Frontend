@@ -6,14 +6,14 @@ import "./index.css";
 import Home, { loader as homeLoader } from "./Routes/Home.jsx";
 import Login2faForm, {
   action as action2fa,
-} from "./Components/Login2faForm.jsx";
-import LoginForm, { action as actionLogin } from "./Components/LoginForm.jsx";
-import Test from "./Routes/Test.jsx"
+} from "./Routes/Login2faForm.jsx";
+import LoginForm, { action as actionLogin } from "./Routes/LoginForm.jsx";
+import Test from "./Routes/Test.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/test",
-    element:<Test/>
+    element: <Test />,
   },
   {
     path: "/login",
@@ -24,8 +24,9 @@ const router = createBrowserRouter([
   },
   {
     path: "/",
-    element: <Home />,
-    loader: homeLoader,
+    children: [
+      { index: true, element: <Home />, loader: homeLoader },
+    ],
   },
 ]);
 
