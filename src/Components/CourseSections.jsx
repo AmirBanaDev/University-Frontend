@@ -1,26 +1,26 @@
 import CourseCard from "../Components/CourseCard";
 
-function CourseSection({ children, nameNumber }) {
+function CourseSection({ children, nameNumber, title }) {
   return (
-    <section class="px-10 pb-4 border-1 border-gray-300">
-      <div class="p-2 border-2 border-gray-300 rounded">
-        <div class="mb-6">
-          <h2 class="text-2xl font-semibold mb-6 pr-2">همه دوره ها</h2>
-          {nameNumber === 1 && (
+    <section className="px-10 pb-4 border-1 border-gray-300">
+      <div className="p-2 border-2 border-gray-300 rounded">
+        <div className="mb-6">
+          <h2 className="text-2xl font-semibold mb-6 pr-2">{title}</h2>
+          {nameNumber != 1 && (
             <div>
-              <button class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 mr-2 rounded">
+              <button className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 mr-2 rounded">
                 همه
               </button>
-              <button class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 mr-2 rounded">
+              <button className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 mr-2 rounded">
                 آزاد
               </button>
-              <button class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 mr-2 rounded">
+              <button className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 mr-2 rounded">
                 ثبت نامی
               </button>
             </div>
           )}
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4">
           {children}
         </div>
       </div>

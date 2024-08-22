@@ -3,12 +3,13 @@ import ReactDOM from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 //import Login, {action as loginAction} from "./Routes/Login.jsx";
 import "./index.css";
-import Home, { loader as homeLoader } from "./Routes/Home.jsx";
+import Home from "./Routes/Home.jsx";
 import Login2faForm, {
   action as action2fa,
 } from "./Routes/Login2faForm.jsx";
 import LoginForm, { action as actionLogin } from "./Routes/LoginForm.jsx";
 import Test from "./Routes/Test.jsx";
+import RootLayout, {loader as rootLoader} from "./Layouts/RootLayout.jsx";
 
 const router = createBrowserRouter([
   {
@@ -24,9 +25,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/",
+    element:<RootLayout/>,
     children: [
-      { index: true, element: <Home />, loader: homeLoader },
+      { index: true, element: <Home /> },
     ],
+    loader: rootLoader
   },
 ]);
 
