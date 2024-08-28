@@ -10,6 +10,8 @@ import Login2faForm, {
 import LoginForm, { action as actionLogin } from "./Routes/LoginForm.jsx";
 import Test from "./Routes/Test.jsx";
 import RootLayout, {loader as rootLoader} from "./Layouts/RootLayout.jsx";
+import AdminLayout from "./Layouts/AdminLayout.jsx";
+import NewCourse from "./Routes/NewCourse.jsx";
 
 const router = createBrowserRouter([
   {
@@ -28,9 +30,17 @@ const router = createBrowserRouter([
     element:<RootLayout/>,
     children: [
       { index: true, element: <Home /> },
+      {path:"manager/newcourse", element:<NewCourse/>}
     ],
     loader: rootLoader
   },
+  {
+    path: "/admin",
+    element: <AdminLayout/>,
+    children:[
+
+    ],
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(

@@ -1,7 +1,6 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
-import { Link } from "react-router-dom";
 
-function MainHeader() {
+function AdminHeader() {
   const linkClasses = "text-gray-700 hover:text-blue-700";
   const liClasses = "mr-4 mt-1";
   return (
@@ -15,26 +14,24 @@ function MainHeader() {
           <ul className="flex">
             <li className={liClasses}>
               <a href="#" className={linkClasses}>
-                صفحه اصلی
+                کاربران
               </a>
             </li>
             <li className={liClasses}>
               <a href="#" className={linkClasses}>
-                دوره های من
+                دوره ها
               </a>
             </li>
             <li className={liClasses}>
               <a href="#" className={linkClasses}>
-                مدرک ها
+                دپارتمان ها
               </a>
             </li>
             {/*dropDownlist*/}
             <li className={liClasses}>
               <Menu as="div" className="relative inline-block">
                 <div>
-                  <MenuButton className={linkClasses}>
-                    مدیریت
-                  </MenuButton>
+                  <MenuButton className={linkClasses}>مدیریت</MenuButton>
                 </div>
 
                 <MenuItems
@@ -43,20 +40,20 @@ function MainHeader() {
                 >
                   <div className="py-1">
                     <MenuItem>
-                      <Link
-                        to="/manager/newcourse"
+                      <a
+                        href="#"
                         className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900"
                       >
                         ساخت دوره جدید
-                      </Link>
+                      </a>
                     </MenuItem>
                     <MenuItem>
-                      <Link
-                        to="/manager/courses"
+                      <a
+                        href="#"
                         className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900"
                       >
                         مشاهده ی دوره ها
-                      </Link>
+                      </a>
                     </MenuItem>
                   </div>
                 </MenuItems>
@@ -65,7 +62,7 @@ function MainHeader() {
             {/*dropDownlist*/}
             <li className={liClasses}>
               <a href="#" className={linkClasses}>
-                ادمین
+                سایت اصلی
               </a>
             </li>
           </ul>
@@ -83,4 +80,4 @@ function MainHeader() {
   );
 }
 
-export default MainHeader;
+export default AdminHeader;
