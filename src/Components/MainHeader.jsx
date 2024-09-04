@@ -52,7 +52,7 @@ function MainHeader() {
                     </MenuItem>
                     <MenuItem>
                       <Link
-                        to="/manager/courses"
+                        to="/manager"
                         className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900"
                       >
                         مشاهده ی دوره ها

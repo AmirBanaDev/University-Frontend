@@ -3,13 +3,17 @@ import MainFooter from "../Components/MainFooter";
 import MainHeader from "../Components/MainHeader";
 
 function RootLayout() {
-    const loaderData = useLoaderData();
-    console.log(loaderData);
+  const loaderData = useLoaderData();
+  console.log(loaderData);
   return (
     <>
+    <div className="flex flex-col h-screen">
       <MainHeader />
-        <Outlet/>
+      <div className="flex-grow">
+        <Outlet />
+      </div>
       <MainFooter />
+      </div>
     </>
   );
 }
@@ -17,9 +21,9 @@ function RootLayout() {
 export default RootLayout;
 
 export function loader() {
-    return true
-    const user = sessionStorage.getItem("auth");
-    if (!user) {
-      return redirect("/login");
-    }
+  const user = sessionStorage.getItem("auth");
+  if (!user) {
+    return redirect("/login");
   }
+  return JSON.parse(user);
+}

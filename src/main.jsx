@@ -11,7 +11,8 @@ import LoginForm, { action as actionLogin } from "./Routes/LoginForm.jsx";
 import Test from "./Routes/Test.jsx";
 import RootLayout, {loader as rootLoader} from "./Layouts/RootLayout.jsx";
 import AdminLayout from "./Layouts/AdminLayout.jsx";
-import NewCourse from "./Routes/NewCourse.jsx";
+import NewCourse, {loader as newCourseLoader } from "./Routes/NewCourse.jsx";
+import Manager from "./Routes/Manager.jsx";
 
 const router = createBrowserRouter([
   {
@@ -30,7 +31,8 @@ const router = createBrowserRouter([
     element:<RootLayout/>,
     children: [
       { index: true, element: <Home /> },
-      {path:"manager/newcourse", element:<NewCourse/>}
+      {path:"manager", element:<Manager/>},
+      {path:"manager/newcourse", element:<NewCourse/>, loader: newCourseLoader}
     ],
     loader: rootLoader
   },
