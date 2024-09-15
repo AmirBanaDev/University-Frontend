@@ -10,7 +10,7 @@ function ManagerCourseRow({ title, date, status, id, color }) {
   return (
     <>
       <tr className={trColor}>
-        <td className="py-2 px-4 border-b width-1/4 text-center">{title}</td>
+        <td className="py-2 px-4 border-b width-1/4 text-center"><Link to={`course/${id}`} className="hover:text-blue-600">{title}</Link></td>
         <td className="py-2 px-4 border-b width-1/4 text-center">{date}</td>
         <td className="py-2 px-4 border-b width-1/4 text-center">
           {status === false ? "فعال" : "پایان یافته"}
