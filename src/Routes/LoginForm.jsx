@@ -109,6 +109,6 @@ async function loginFromServer(formData) {
     });
     return response;
   } catch (err) {
-    console.log(er);
+    console.log(err);
   }
 }

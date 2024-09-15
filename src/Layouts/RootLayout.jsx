@@ -4,7 +4,6 @@ import MainHeader from "../Components/MainHeader";
 
 function RootLayout() {
   const loaderData = useLoaderData();
-  console.log(loaderData);
   return (
     <>
     <div className="flex flex-col h-screen">
