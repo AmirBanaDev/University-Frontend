@@ -6,7 +6,6 @@ const apiUrl = "https://localhost:5000/";
 
 function Manager() {
   const loaderData = useLoaderData();
-  console.log(loaderData)
   let color = "white";
   return (
     <>
@@ -48,8 +47,6 @@ function Manager() {
                 color={color==="white" ? color = "gray" : color = "white" }
               />
             ))}
-            {/*<ManagerCourseRow title="آیتم 1" date="1403/2/12" status="فعال" id="1" color="white"/>
-              <ManagerCourseRow title="آیتم 1" date="1403/2/12" status="فعال" id="1" color="gray"/>*/}
           </tbody>
         </table>
       </div>

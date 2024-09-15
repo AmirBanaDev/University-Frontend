@@ -13,6 +13,7 @@ import RootLayout, {loader as rootLoader} from "./Layouts/RootLayout.jsx";
 import AdminLayout from "./Layouts/AdminLayout.jsx";
 import NewCourse, {loader as newCourseLoader, action as newCourseAction } from "./Routes/NewCourse.jsx";
 import Manager, {loader as getCourseLoader} from "./Routes/Manager.jsx";
+import {action as courseAction} from "./Components/ManagerCourseRow.jsx"
 
 const router = createBrowserRouter([
   {
@@ -31,7 +32,7 @@ const router = createBrowserRouter([
     element:<RootLayout/>,
     children: [
       { index: true, element: <Home /> },
-      {path:"manager", element:<Manager/>, loader: getCourseLoader},
+      {path:"manager", element:<Manager/>, loader: getCourseLoader, action: courseAction},
       {path:"manager/newcourse", element:<NewCourse/>, loader: newCourseLoader, action: newCourseAction}
     ],
     loader: rootLoader
