@@ -169,7 +169,7 @@ async function createCourse(formData) {
     const response = await axios.post(
       apiUrl + "api/course/create",
       {
-        Name: data.Name,
+        Name: data.name,
         TypeId: data.type,
         DepartmentId: department,
         Banner: data.banner,
@@ -181,7 +181,7 @@ async function createCourse(formData) {
         NumberOfSessions: data.sessions,
         Location: data.location,
         SessionHour: data.hour,
-        SessionMinute: data.minute,
+        SessionMinute: data.minute
       },
       {
         headers: {

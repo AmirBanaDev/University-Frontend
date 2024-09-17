@@ -8,47 +8,46 @@ function ShowCourse() {
   console.log(data);
   return (
     <>
-        <div class="container mx-auto p-4">
-          <section class="bg-white shadow-md rounded-lg p-4 mb-6 flex">
-            <div class="w-2/3">
-              <div class="grid grid-cols-3 gap-4 mb-4">
+        <div className="container mx-auto p-4">
+          <section className="bg-white shadow-md rounded-lg p-4 mb-6 flex">
+            <div className="w-2/3">
+              <div className="grid grid-cols-3 gap-4 mb-4">
                 <div>
-                    <p class="mb-2">نام دوره: علوم کامپیوتر</p>
-                  <p class="mb-2">دپارتمان: علوم کامپیوتر</p>
-                  <p class="mb-2">مدرس: استاد مثال</p>
+                    <p className="mb-2">نام دوره: {data.name}</p>
+                  <p className="mb-2">دپارتمان: {data.deparment}</p>
+                  <p className="mb-2">مدرس: {data.teacher}</p>
                 </div>
                 <div>
-                <p class="mb-2">تاریخ شروع: 403/5/12</p>
-                  <p class="mb-2">برنامه: دوشنبه‌ها و چهارشنبه‌ها</p>
-                  <p class="mb-2">مکان: دانشگاه تهران</p>
+                <p className="mb-2">تاریخ شروع: {data.startDate}</p>
+                  <p className="mb-2">برنامه: {data.schedule}</p>
+                  <p className="mb-2">مکان: {data.location}</p>
                 </div>
                 <div>
-                <p class="mb-2">نوع: هم اندیشی</p>
-                  <p class="mb-2">وضعیت: فعال</p>
-                  <p class="mb-2">تعداد جلسات: 10</p>
+                <p className="mb-2">نوع: {data.type}</p>
+                  <p className="mb-2">وضعیت: {data.isFinished === false ? "فعال" : "پایان یافته"}</p>
+                  <p className="mb-2">تعداد جلسات: {data.numberOfSessions}</p>
                 </div>
               </div>
-              <p class="mb-4">
-                توضیحات دوره به زبان فارسی. این دوره شامل موضوعات مختلفی است که
-                به شما کمک می‌کند تا مهارت‌های جدیدی را یاد بگیرید.
+              <p className="mb-4">
+                {data.description}
               </p>
-              <button class="bg-blue-500 text-white px-4 py-2 rounded">
+              <button className="bg-blue-500 text-white px-4 py-2 rounded">
                 ثبت نام
               </button>
             </div>
-            <div class="w-1/3">
+            <div className="w-1/3">
               <img
-                src="course-image.jpg"
-                alt="Course Image"
-                class="rounded-lg shadow-md"
+                src={data.banner}
+                alt={data.banner}
+                className="rounded-lg shadow-md"
               />
             </div>
           </section>
-          <section class="bg-white shadow-md rounded-lg p-4 mb-6">
-            <h2 class="text-2xl font-semibold mb-4">مدیریت</h2>
-            <div class="flex justify-center space-x-4">
-                <button class="bg-green-500 text-white px-4 py-2 rounded ml-5">حضور و غیاب</button>
-                <button class="bg-yellow-500 text-white px-4 py-2 rounded ml-5">اضاف کردن محتوای جدید</button>
+          <section className="bg-white shadow-md rounded-lg p-4 mb-6">
+            <h2 className="text-2xl font-semibold mb-4">مدیریت</h2>
+            <div className="flex justify-center space-x-4">
+                <button className="bg-green-500 text-white px-4 py-2 rounded ml-5">حضور و غیاب</button>
+                <button className="bg-yellow-500 text-white px-4 py-2 rounded ml-5">اضاف کردن محتوای جدید</button>
             </div>
         </section>
         </div>
