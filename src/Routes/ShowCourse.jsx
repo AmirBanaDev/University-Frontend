@@ -1,11 +1,14 @@
 import axios from "axios";
 import { useLoaderData } from "react-router-dom";
+import FixFilePath from "../JsUtilities/FixFilePath";
 
 const apiUrl = "https://localhost:5000/";
 
 function ShowCourse() {
   const { data } = useLoaderData();
-  console.log(data);
+  const img = FixFilePath(data.banner)
+  console.log(img)
+  console.log(data); 
   return (
     <>
         <div className="container mx-auto p-4">
@@ -13,7 +16,7 @@ function ShowCourse() {
             <div className="w-2/3">
               <div className="grid grid-cols-3 gap-4 mb-4">
                 <div>
-                    <p className="mb-2">نام دوره: {data.name}</p>
+                  <p className="mb-2">نام دوره: {data.name}</p>
                   <p className="mb-2">دپارتمان: {data.deparment}</p>
                   <p className="mb-2">مدرس: {data.teacher}</p>
                 </div>
@@ -37,8 +40,7 @@ function ShowCourse() {
             </div>
             <div className="w-1/3">
               <img
-                src={data.banner}
-                alt={data.banner}
+                src={img}
                 className="rounded-lg shadow-md"
               />
             </div>
