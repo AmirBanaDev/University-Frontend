@@ -14,9 +14,9 @@ function MainHeader() {
           {/* Navigation Links (Right Side) */}
           <ul className="flex">
             <li className={liClasses}>
-              <a href="#" className={linkClasses}>
+              <Link to="/" className={linkClasses}>
                 صفحه اصلی
-              </a>
+              </Link>
             </li>
             <li className={liClasses}>
               <a href="#" className={linkClasses}>
