@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 function MainHeader() {
   const linkClasses = "text-gray-700 hover:text-blue-700";
   const liClasses = "mr-4 mt-1";
+  const user = JSON.parse(sessionStorage.getItem("auth"));
   return (
     <>
       <header className="mb-8">
@@ -19,14 +20,9 @@ function MainHeader() {
               </Link>
             </li>
             <li className={liClasses}>
-              <a href="#" className={linkClasses}>
+              <Link to={`/${user.id}/mycourses`} className={linkClasses}>
                 دوره های من
-              </a>
-            </li>
-            <li className={liClasses}>
-              <a href="#" className={linkClasses}>
-                مدرک ها
-              </a>
+              </Link>
             </li>
             {/*dropDownlist*/}
             <li className={liClasses}>

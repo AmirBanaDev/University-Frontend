@@ -1,14 +1,18 @@
 import axios from "axios";
-import { useLoaderData, Form } from "react-router-dom";
+import { useLoaderData, Form, json } from "react-router-dom";
 import FixFilePath from "../JsUtilities/FixFilePath";
 import CourseContent from "../Components/CourseContent";
 
 const apiUrl = "https://localhost:5000/";
-
 function ShowCourse() {
-  const { data } = useLoaderData();
+  const { courseData, userCourse } = useLoaderData();
+  const data = courseData.data;
+  const userCourseData = userCourse.data;
+  const isFavorite = favorite(userCourseData, data.id);
+  console.log(isFavorite)
+  const isSigned = signup(userCourseData, data.id);
+  console.log(userCourseData);
   const img = FixFilePath(data.banner);
-  console.log(data.contentDtos);
   return (
     <>
       <div className="container mx-auto p-4">
@@ -34,12 +38,57 @@ function ShowCourse() {
               </div>
             </div>
             <p className="mb-4">{data.description}</p>
-            <Form className="mb-2">
-              <button className="bg-blue-500 text-white px-4 py-2 rounded" type="submit" name="signup">ثبت نام</button>
-            </Form>
-            <Form className="mb-2">
-              <button className="bg-red-500 text-white px-4 py-2 rounded" type="submit" name="favorite">علاقه مندی</button>
-            </Form>
+            {data.needSignup === true ? (
+              isSigned[0] !== true ? (
+                <Form className="mb-2" method="PATCH">
+                  <input type="hidden" name="id" value="signup" />
+                  <input type="hidden" name="courseId" value={data.id} />
+                  <button
+                    className="bg-blue-500 text-white px-4 py-2 rounded"
+                    type="submit"
+                    name="signup"
+                  >
+                    ثبت نام
+                  </button>
+                </Form>
+              ) : (
+                <button
+                  className="bg-gray-100 border-2 border-blue-500 text-back px-4 py-2 rounded mb-2"
+                  type="submit"
+                  name="signup"
+                  disabled
+                >
+                  ثبت نام شده
+                </button>
+              )
+            ) : (
+              <p className="text-blue-700 mb-2"> بدون نیاز به ثبت نام</p>
+            )}
+            {isFavorite[0] !== true ? (
+              <Form className="mb-2" method="PATCH">
+                <input type="hidden" name="id" value="favorite" />
+                <input type="hidden" name="courseId" value={data.id} />
+                <button
+                  className="bg-red-500 text-white px-4 py-2 rounded"
+                  type="submit"
+                  name="signup"
+                >
+                  علاقه مندی
+                </button>
+              </Form>
+            ) : (
+              <Form className="mb-2" method="PATCH">
+                <input type="hidden" name="id" value="removeFav" />
+                <input type="hidden" name="courseId" value={data.id} />
+                <button
+                  className="bg-gray-100 border-red-500 border-2 text-black px-4 py-2 rounded"
+                  type="submit"
+                  name="signup"
+                >
+                  حذف علاقه
+                </button>
+              </Form>
+            )}
           </div>
           <div className="w-1/3">
             <img src={img} className="rounded-lg shadow-md" />
@@ -57,9 +106,15 @@ function ShowCourse() {
           </div>
         </section>
         <section className="bg-white shadow-md rounded-lg p-4 mb-6">
-          {data.contentDtos.map(e=> 
-            <CourseContent key={e.id} title={e.title} createdAt={e.createdAt} description={e.description} file={FixFilePath(e.files)} />
-          )}
+          {data.contentDtos.map((e) => (
+            <CourseContent
+              key={e.id}
+              title={e.title}
+              createdAt={e.createdAt}
+              description={e.description}
+              file={FixFilePath(e.files)}
+            />
+          ))}
         </section>
       </div>
     </>
@@ -68,13 +123,69 @@ function ShowCourse() {
 
 export default ShowCourse;
 
+function favorite(userData, courseId) {
+  return userData.favorites.map((item) => item.id === courseId);
+}
+function signup(userData, courseId) {
+  return userData.signups.map((item) => item.id === courseId);
+}
 export async function loader({ params }) {
-  console.log("param id: " + params.id);
   try {
-    const response = await axios.get(apiUrl + `api/course/${params.id}`);
-    return response;
+    const user = JSON.parse(sessionStorage.getItem("auth"));
+    const courseData = await axios.get(apiUrl + `api/course/${params.id}`);
+    const userCourse = await axios.get(apiUrl + `api/User/favosign/${user.id}`);
+    return json({ courseData, userCourse });
   } catch (err) {
     console.log("false");
+    return err;
+  }
+}
+
+export async function action({ request, response }) {
+  const formData = await request.formData();
+  const data = Object.fromEntries(formData);
+  const user = JSON.parse(sessionStorage.getItem("auth"));
+  const intent = formData.get("id");
+  if (intent === "favorite") {
+    const result = await favoriteAction(data, user);
+    return result;
+  } else if (intent === "signup") {
+    const result = await signupAction(data, user);
+    return result;
+  } else if(intent == "removeFav"){
+    const result = await removeFavoriteAction(data, user);
+    return result;
+  }
+}
+async function removeFavoriteAction(data, user){
+  try{
+    const res = await axios.patch(
+      apiUrl+`api/User/${user.id}/favo/${data.courseId}/remove`
+    );
+    return res;
+  } catch(err){
+    return err;
+  }
+}
+async function favoriteAction(data, user) {
+  try {
+
+    const res = await axios.patch(
+      apiUrl + `api/User/${user.id}/favo/${data.courseId}`
+    );
+    return res;
+  } catch (err) {
+    return err;
+  }
+}
+async function signupAction(data, user) {
+  try {
+
+    const res = await axios.patch(
+      apiUrl + `api/User/${user.id}/sign/${data.courseId}`
+    );
+    return res;
+  } catch (err) {
     return err;
   }
 }
