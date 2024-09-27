@@ -18,6 +18,7 @@ import ShowCourse, {loader as showCourseLoader, action as showCourseAction} from
 import MyCourses, {loader as mycoursesLoader} from "./Routes/MyCourses.jsx";
 import AddUser, {loader as addUserLoader, action as addUserAction} from "./Routes/AddUser.jsx";
 import ShowUsers, {loader as showUsersLoader} from "./Routes/ShowUsers.jsx";
+import EditUser, {loader as editUserLoader, action as editUserAction} from "./Routes/EditUser.jsx";
 
 const router = createBrowserRouter([
   {
@@ -38,6 +39,7 @@ const router = createBrowserRouter([
       { index: true, element: <Home /> },
       {path:"admin/adduser", element:<AddUser/>, loader:addUserLoader, action:addUserAction},
       {path:"admin/users", element:<ShowUsers/>, loader:showUsersLoader},
+      {path:"admin/user/:id/edit", element:<EditUser/>, loader:editUserLoader, action:editUserAction},
       {path:"manager", element:<Manager/>, loader: getCourseLoader, action: courseAction},
       {path:"manager/newcourse", element:<NewCourse/>, loader: newCourseLoader, action: newCourseAction},
       {path:`course/:id`,element:<ShowCourse/>, loader:showCourseLoader, action: showCourseAction},

@@ -18,12 +18,12 @@ function ShowUsersRow({id, name, username, department, idCard, position, color})
         <td className="py-2 px-4 width-1/6 text-center">{idCard}</td>
         <td className="py-2 px-4 width-1/6 text-center">{position}</td>
         <td className="py-2 px-4 width-1/6 text-center inline-flex items-center">
-          <button
+          <Link
             className="bg-orange-500 hover:bg-orange-700 text-white py-2 px-4 mr-2 rounded focus:outline-none focus:shadow-outline"
-            type="button"
+            to={`/admin/user/${id}/edit`}
           >
             ویرایش
-          </button>
+          </Link>
           <button
             className="bg-red-500 hover:bg-red-700 text-white py-2 px-4 mr-2 rounded focus:outline-none focus:shadow-outline"
             type="button"
