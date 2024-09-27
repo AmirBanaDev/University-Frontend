@@ -33,7 +33,9 @@ function LoginForm({ form2fa }) {
           >
             ورود به سایت
           </button>
-          <button
+          {
+            /* 
+            <button
             type="submit"
             name="formBtn"
             value="code"
@@ -42,6 +44,8 @@ function LoginForm({ form2fa }) {
           >
             ورود با رمز یکبار مصرف
           </button>
+            */
+          }
           {!actionData?.isValid && (
             <ul>
               {actionData?.phone.map((e) => (

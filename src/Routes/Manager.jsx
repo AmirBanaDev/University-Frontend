@@ -1,6 +1,6 @@
 import axios from "axios";
 import ManagerCourseRow from "../Components/ManagerCourseRow";
-import { Link, useLoaderData } from "react-router-dom";
+import { Link, useLoaderData, redirect } from "react-router-dom";
 
 const apiUrl = "https://localhost:5000/";
 

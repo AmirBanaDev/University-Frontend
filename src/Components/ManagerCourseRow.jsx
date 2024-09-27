@@ -9,23 +9,39 @@ function ManagerCourseRow({ title, date, status, id, color }) {
   else if (color === "gray") trColor = "bg-gray-100";
   return (
     <>
-      <tr className={trColor}>
-        <td className="py-2 px-4 border-b width-1/4 text-center"><Link to={`course/${id}`} className="hover:text-blue-600">{title}</Link></td>
-        <td className="py-2 px-4 border-b width-1/4 text-center">{date}</td>
-        <td className="py-2 px-4 border-b width-1/4 text-center">
+      <tr className={trColor+" border-b"}>
+        <td className="py-2 px-4 width-1/4 text-center">
+          <Link to={`/course/${id}`} className="hover:text-blue-600">
+            {title}
+          </Link>
+        </td>
+        <td className="py-2 px-4 width-1/4 text-center">{date}</td>
+        <td className="py-2 px-4 width-1/4 text-center">
           {status === false ? "فعال" : "پایان یافته"}
         </td>
-        <td className="py-2 px-4 border-b width-1/4 text-center inline-flex items-center">
+        <td className="py-2 px-4 width-1/4 text-center inline-flex items-center">
           <Form method="POST" className="ml-2">
-          <input type="hidden" value={id} name="id"/>
-            <button
-              type="submit"
-              name="formBtn"
-              className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-700"
-              value="fin"
-            >
-              پایان دوره
-            </button>
+            <input type="hidden" value={id} name="id" />
+            {status === false ? (
+              <button
+                type="submit"
+                name="formBtn"
+                className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-700"
+                value="fin"
+              >
+                پایان دوره
+              </button>
+            ) : (
+              <button
+                type="submit"
+                name="formBtn"
+                className="bg-gray-100 border-2 border-green-500 text-black px-4 py-2 rounded"
+                value="fin"
+                disabled
+              >
+                پایان دوره
+              </button>
+            )}
           </Form>
           <Link
             to={"edit/" + id}
@@ -34,7 +50,7 @@ function ManagerCourseRow({ title, date, status, id, color }) {
             ویرایش
           </Link>
           <Form method="POST">
-            <input type="hidden" value={id} name="id"/>
+            <input type="hidden" value={id} name="id" />
             <button
               type="submit"
               className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700"
@@ -55,7 +71,7 @@ export default ManagerCourseRow;
 export async function action({ request, response }) {
   const formData = await request.formData();
   const intent = formData.get("formBtn");
-  const id = formData.get("id")
+  const id = formData.get("id");
   if (intent === "fin") {
     const result = await finishCourse(id);
     if (result.status !== 204) {
@@ -63,7 +79,7 @@ export async function action({ request, response }) {
       console.log(result.data);
       return "err";
     }
-    alert("دوره پایان یافت")
+    alert("دوره پایان یافت");
     return "fin";
   } else if (intent === "del") {
     const result = await deleteCourse(id);
@@ -72,13 +88,13 @@ export async function action({ request, response }) {
       console.log(result.data);
       return "err";
     } else {
-      alert("دوره حذف شد")
+      alert("دوره حذف شد");
       return "del";
     }
   }
 }
 
-async function finishCourse(id){
+async function finishCourse(id) {
   try {
     const response = await axios.patch(apiUrl + `api/course/${id}/finish`);
     return response;
@@ -86,11 +102,11 @@ async function finishCourse(id){
     console.log(err);
   }
 }
-async function deleteCourse(id){
-  try{
-    const response = await axios.delete(apiUrl + `api/course/${id}/delete`)
-    return response
-  } catch(err){
-    console.log(err)
+async function deleteCourse(id) {
+  try {
+    const response = await axios.delete(apiUrl + `api/course/${id}/delete`);
+    return response;
+  } catch (err) {
+    console.log(err);
   }
 }
