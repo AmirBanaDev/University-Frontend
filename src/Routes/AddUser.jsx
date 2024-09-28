@@ -4,8 +4,8 @@ import { json, useLoaderData, Form, redirect } from "react-router-dom";
 const apiUrl = "https://localhost:5000/";
 
 function AddUser() {
-    const {department, roles} = useLoaderData();
-    console.log(roles)
+  const { department, roles } = useLoaderData();
+  console.log(roles);
   return (
     <>
       <div className="flex justify-center items-center mb-5">
@@ -58,7 +58,10 @@ function AddUser() {
           </div>
           <div className="mb-4">
             <label className="block text-gray-700">دپارتمان</label>
-            <select className="w-full px-3 py-2 border rounded" name="department">
+            <select
+              className="w-full px-3 py-2 border rounded"
+              name="department"
+            >
               {department.data.map((e) => (
                 <option key={e.id} value={e.id}>
                   {e.name}
@@ -96,37 +99,37 @@ function AddUser() {
 
 export default AddUser;
 
-export async function action({request, response}){
-    const formData = await request.formData();
+export async function action({ request, response }) {
+  const formData = await request.formData();
   const result = await createUser(formData);
   if (result.status !== 202) {
     console.log("fail");
     console.log("result data: " + result.data);
   } else {
     console.log("ok");
-    window.alert("کاربر اضاف شد")
+    window.alert("کاربر اضاف شد");
     return redirect("/admin/adduser");
   }
   return null;
 }
-async function createUser(formData){
-    const data = Object.fromEntries(formData);
-    try{
-        const res = await axios.post(`${apiUrl}api/Account/signup`,{
-            DisplayName: data.fullName,
-            UserName : data.userName,
-            PhoneNumber: data.phoneNumber,
-            IdCard:data.idCard,
-            Password:data.password,
-            Position:data.position,
-            DepartmentId:data.department,
-            Role:data.role
-        })
-        return res
-    }catch(err){
-        console.log(err)
-        return err
-    }
+async function createUser(formData) {
+  const data = Object.fromEntries(formData);
+  try {
+    const res = await axios.post(`${apiUrl}api/Account/signup`, {
+      DisplayName: data.fullName,
+      UserName: data.userName,
+      PhoneNumber: data.phoneNumber,
+      IdCard: data.idCard,
+      Password: data.password,
+      Position: data.position,
+      DepartmentId: data.department,
+      Role: data.role,
+    });
+    return res;
+  } catch (err) {
+    console.log(err);
+    return err;
+  }
 }
 
 export async function loader() {
@@ -137,7 +140,7 @@ export async function loader() {
   try {
     const department = await getDepartment();
     const roles = await getRoles();
-    return json({department, roles})
+    return json({ department, roles });
   } catch (err) {
     return err;
   }

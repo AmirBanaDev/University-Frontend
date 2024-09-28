@@ -88,6 +88,14 @@ function MainHeader() {
                         مشاهده کاربران
                       </Link>
                     </MenuItem>
+                    <MenuItem>
+                      <Link
+                        to="/admin/departments"
+                        className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900"
+                      >
+                        دپارتمان ها
+                      </Link>
+                    </MenuItem>
                   </div>
                 </MenuItems>
               </Menu>

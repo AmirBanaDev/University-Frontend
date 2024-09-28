@@ -19,6 +19,9 @@ import MyCourses, {loader as mycoursesLoader} from "./Routes/MyCourses.jsx";
 import AddUser, {loader as addUserLoader, action as addUserAction} from "./Routes/AddUser.jsx";
 import ShowUsers, {loader as showUsersLoader} from "./Routes/ShowUsers.jsx";
 import EditUser, {loader as editUserLoader, action as editUserAction} from "./Routes/EditUser.jsx";
+import Departments, {loader as departmentLoader} from "./Routes/Departments.jsx";
+import {action as departmentAction} from "./Components/ShowDepartmentRow.jsx";
+import AddDepartment, {action as addDepartmentAction} from "./Routes/AddDepartment.jsx";
 
 const router = createBrowserRouter([
   {
@@ -40,6 +43,8 @@ const router = createBrowserRouter([
       {path:"admin/adduser", element:<AddUser/>, loader:addUserLoader, action:addUserAction},
       {path:"admin/users", element:<ShowUsers/>, loader:showUsersLoader},
       {path:"admin/user/:id/edit", element:<EditUser/>, loader:editUserLoader, action:editUserAction},
+      {path:"admin/departments", element:<Departments/>, loader:departmentLoader, action:departmentAction},
+      {path:"admin/departments/add", element:<AddDepartment/>, action:addDepartmentAction},
       {path:"manager", element:<Manager/>, loader: getCourseLoader, action: courseAction},
       {path:"manager/newcourse", element:<NewCourse/>, loader: newCourseLoader, action: newCourseAction},
       {path:`course/:id`,element:<ShowCourse/>, loader:showCourseLoader, action: showCourseAction},
