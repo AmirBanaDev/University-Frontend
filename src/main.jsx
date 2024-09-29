@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 //import Login, {action as loginAction} from "./Routes/Login.jsx";
 import "./index.css";
-import Home from "./Routes/Home.jsx";
+import Home, {loader as homeLoader} from "./Routes/Home.jsx";
 import Login2faForm, {
   action as action2fa,
 } from "./Routes/Login2faForm.jsx";
@@ -25,6 +25,9 @@ import AddDepartment, {action as addDepartmentAction} from "./Routes/AddDepartme
 import {action as logoutAction} from "./Components/MainHeader.jsx";
 import UserProfile,{loader as profileLoader} from "./Routes/UserProfile.jsx";
 import EditProfile,{action as editProfileAction} from "./Routes/EditProfile.jsx";
+import RollCallSessions,{loader as sessionLoader} from "./Routes/RollCallSessions.jsx";
+import RollCallList,{loader as rollcallLoader} from "./Routes/RollCallList.jsx";
+import CoursesList,{loader as coursesListLoader} from "./Routes/CoursesList.jsx";
 
 const router = createBrowserRouter([
   {
@@ -42,7 +45,7 @@ const router = createBrowserRouter([
     path: "/",
     element:<RootLayout/>,
     children: [
-      { index: true, element: <Home />},
+      { index: true, element: <Home />,loader:homeLoader},
       {path:"admin/adduser", element:<AddUser/>, loader:addUserLoader, action:addUserAction},
       {path:"admin/users", element:<ShowUsers/>, loader:showUsersLoader},
       {path:"admin/user/:id/edit", element:<EditUser/>, loader:editUserLoader, action:editUserAction},
@@ -51,6 +54,9 @@ const router = createBrowserRouter([
       {path:"manager", element:<Manager/>, loader: getCourseLoader, action: courseAction},
       {path:"manager/newcourse", element:<NewCourse/>, loader: newCourseLoader, action: newCourseAction},
       {path:`course/:id`,element:<ShowCourse/>, loader:showCourseLoader, action: showCourseAction},
+      {path:"courses/:type", element:<CoursesList/>, loader:coursesListLoader},
+      {path:`course/:id/rollcalls`,element:<RollCallSessions/>, loader:sessionLoader},
+      {path:"course/:id/rollcalls/:session", element:<RollCallList/>, loader:rollcallLoader},
       {path: ':id/mycourses', element:<MyCourses/>, loader:mycoursesLoader},
       {path: 'profile', element:<UserProfile/>, loader:profileLoader},
       {path:"profile/edit", element:<EditProfile/>,  action:editProfileAction},

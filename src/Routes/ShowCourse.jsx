@@ -9,7 +9,7 @@ function ShowCourse() {
   const data = courseData.data;
   const userCourseData = userCourse.data;
   const isFavorite = favorite(userCourseData, data.id);
-  console.log(isFavorite)
+  console.log(isFavorite);
   const isSigned = signup(userCourseData, data.id);
   console.log(userCourseData);
   const img = FixFilePath(data.banner);
@@ -152,24 +152,23 @@ export async function action({ request, response }) {
   } else if (intent === "signup") {
     const result = await signupAction(data, user);
     return result;
-  } else if(intent == "removeFav"){
+  } else if (intent == "removeFav") {
     const result = await removeFavoriteAction(data, user);
     return result;
   }
 }
-async function removeFavoriteAction(data, user){
-  try{
+async function removeFavoriteAction(data, user) {
+  try {
     const res = await axios.patch(
-      apiUrl+`api/User/${user.id}/favo/${data.courseId}/remove`
+      apiUrl + `api/User/${user.id}/favo/${data.courseId}/remove`
     );
     return res;
-  } catch(err){
+  } catch (err) {
     return err;
   }
 }
 async function favoriteAction(data, user) {
   try {
-
     const res = await axios.patch(
       apiUrl + `api/User/${user.id}/favo/${data.courseId}`
     );
@@ -180,7 +179,6 @@ async function favoriteAction(data, user) {
 }
 async function signupAction(data, user) {
   try {
-
     const res = await axios.patch(
       apiUrl + `api/User/${user.id}/sign/${data.courseId}`
     );
