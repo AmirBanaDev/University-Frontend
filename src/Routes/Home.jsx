@@ -3,8 +3,6 @@ import CourseCard from "../Components/CourseCard";
 import CourseSection from "../Components/CourseSections";
 
 function Home() {
-  const loaderData = useLoaderData();
-  console.log(loaderData);
   return (
     <>
       <CourseSection title="همه دوره ها" nameNumber="3">

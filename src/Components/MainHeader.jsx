@@ -1,5 +1,8 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
-import { Link } from "react-router-dom";
+import axios from "axios";
+import { Form, Link, redirect } from "react-router-dom";
+
+const apiUrl = "https://localhost:5000/";
 
 function MainHeader() {
   const linkClasses = "text-gray-700 hover:text-blue-700";
@@ -28,9 +31,7 @@ function MainHeader() {
             <li className={liClasses}>
               <Menu as="div" className="relative inline-block">
                 <div>
-                  <MenuButton className={linkClasses}>
-                    مدیریت
-                  </MenuButton>
+                  <MenuButton className={linkClasses}>مدیریت</MenuButton>
                 </div>
 
                 <MenuItems
@@ -62,9 +63,7 @@ function MainHeader() {
             <li className={liClasses}>
               <Menu as="div" className="relative inline-block">
                 <div>
-                  <MenuButton className={linkClasses}>
-                    ادمین
-                  </MenuButton>
+                  <MenuButton className={linkClasses}>ادمین</MenuButton>
                 </div>
 
                 <MenuItems
@@ -103,11 +102,42 @@ function MainHeader() {
           </ul>
           {/* User Profile (Left Side) */}
           <div className="ml-4">
-            <img
-              src="\CourseImg.jpg"
-              alt="User Profile"
-              className="w-10 h-10 rounded-full"
-            />
+            <Menu as="div" className="relative inline-block">
+              <div>
+                <MenuButton className={linkClasses}>
+                  <img
+                    src="\CourseImg.jpg"
+                    alt="User Profile"
+                    className="w-10 h-10 rounded-full"
+                  />
+                </MenuButton>
+              </div>
+              <MenuItems
+                transition
+                className="absolute left-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
+              >
+                <div className="py-1">
+                  <MenuItem>
+                    <Link
+                      to="/profile"
+                      className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900"
+                    >
+                      پروفایل
+                    </Link>
+                  </MenuItem>
+                  <MenuItem>
+                    <Form method="POST">
+                      <button
+                        type="submit"
+                        className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900"
+                      >
+                        خروج
+                      </button>
+                    </Form>
+                  </MenuItem>
+                </div>
+              </MenuItems>
+            </Menu>
           </div>
         </nav>
       </header>
@@ -116,3 +146,15 @@ function MainHeader() {
 }
 
 export default MainHeader;
+
+export async function action(){
+  try{
+    const res = await axios.post(`${apiUrl}api/Account/logout`)
+    sessionStorage.clear()
+    return redirect("/login")
+  }catch(err){
+    console.log("err")
+    console.log(err)
+    return err;
+  }
+}
