@@ -9,9 +9,7 @@ function ShowCourse() {
   const data = courseData.data;
   const userCourseData = userCourse.data;
   const isFavorite = favorite(userCourseData, data.id);
-  console.log(isFavorite);
   const isSigned = signup(userCourseData, data.id);
-  console.log(userCourseData);
   const img = FixFilePath(data.banner);
   return (
     <>
@@ -39,7 +37,7 @@ function ShowCourse() {
             </div>
             <p className="mb-4">{data.description}</p>
             {data.needSignup === true ? (
-              isSigned[0] !== true ? (
+              isSigned !== true ? (
                 <Form className="mb-2" method="PATCH">
                   <input type="hidden" name="id" value="signup" />
                   <input type="hidden" name="courseId" value={data.id} />
@@ -64,7 +62,7 @@ function ShowCourse() {
             ) : (
               <p className="text-blue-700 mb-2"> بدون نیاز به ثبت نام</p>
             )}
-            {isFavorite[0] !== true ? (
+            {isFavorite !== true ? (
               <Form className="mb-2" method="PATCH">
                 <input type="hidden" name="id" value="favorite" />
                 <input type="hidden" name="courseId" value={data.id} />
@@ -124,10 +122,21 @@ function ShowCourse() {
 export default ShowCourse;
 
 function favorite(userData, courseId) {
-  return userData.favorites.map((item) => item.id === courseId);
+  const data = userData.favorites
+  for(let i=0;i<data.length;i++){
+    if(data[i].id === courseId)
+      return true
+  }
+  return false
+
 }
 function signup(userData, courseId) {
-  return userData.signups.map((item) => item.id === courseId);
+  const data = userData.signups
+  for(let i=0;i<data.length;i++){
+    if(data[i].id === courseId)
+      return true
+  }
+  return false
 }
 export async function loader({ params }) {
   try {
