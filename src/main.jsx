@@ -28,6 +28,7 @@ import EditProfile,{action as editProfileAction} from "./Routes/EditProfile.jsx"
 import RollCallSessions,{loader as sessionLoader} from "./Routes/RollCallSessions.jsx";
 import RollCallList,{loader as rollcallLoader} from "./Routes/RollCallList.jsx";
 import CoursesList,{loader as coursesListLoader} from "./Routes/CoursesList.jsx";
+import AddContent,{loader as addContentLoader, action as addContentAction} from "./Routes/AddContent.jsx";
 
 const router = createBrowserRouter([
   {
@@ -54,6 +55,7 @@ const router = createBrowserRouter([
       {path:"manager", element:<Manager/>, loader: getCourseLoader, action: courseAction},
       {path:"manager/newcourse", element:<NewCourse/>, loader: newCourseLoader, action: newCourseAction},
       {path:`course/:id`,element:<ShowCourse/>, loader:showCourseLoader, action: showCourseAction},
+      {path:`course/:id/addcontent`,element:<AddContent/>,action:addContentAction, loader:addContentLoader},
       {path:"courses/:type", element:<CoursesList/>, loader:coursesListLoader},
       {path:`course/:id/rollcalls`,element:<RollCallSessions/>, loader:sessionLoader},
       {path:"course/:id/rollcalls/:session", element:<RollCallList/>, loader:rollcallLoader},

@@ -12,9 +12,9 @@ function MainHeader() {
     <>
       <header className="mb-8">
         <div className="text-white text-center">
-          <img src="/CourseImg.jpg" alt="Banner" className="w-full h-16" />
+          <img src="/arm_jsu.png" alt="Banner" className="w-full h-16" />
         </div>
-        <nav className=" py-2 flex justify-between items-start border-b-4 border-blue-400">
+        <nav className=" py-2 flex justify-between items-start border-b-4 border-blue-400 bg-blue-200">
           {/* Navigation Links (Right Side) */}
           <ul className="flex">
             <li className={liClasses}>
@@ -28,7 +28,9 @@ function MainHeader() {
               </Link>
             </li>
             {/*dropDownlist*/}
-            <li className={liClasses}>
+            {
+              user.role[0] === "Manager" &&
+              <li className={liClasses}>
               <Menu as="div" className="relative inline-block">
                 <div>
                   <MenuButton className={linkClasses}>مدیریت</MenuButton>
@@ -59,8 +61,11 @@ function MainHeader() {
                 </MenuItems>
               </Menu>
             </li>
+            }
             {/*dropDownlist*/}
-            <li className={liClasses}>
+            {
+              user.role[0] === "Admin" &&
+              <li className={liClasses}>
               <Menu as="div" className="relative inline-block">
                 <div>
                   <MenuButton className={linkClasses}>ادمین</MenuButton>
@@ -99,6 +104,7 @@ function MainHeader() {
                 </MenuItems>
               </Menu>
             </li>
+            }
           </ul>
           {/* User Profile (Left Side) */}
           <div className="ml-4">

@@ -94,19 +94,11 @@ function NewCourse() {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700">ساعت</label>
+            <label className="block text-gray-700">تایم جلسات</label>
             <input
               type="number"
               className="w-full px-3 py-2 border rounded"
-              name="hour"
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-gray-700">دقیقه</label>
-            <input
-              type="number"
-              className="w-full px-3 py-2 border rounded"
-              name="minute"
+              name="time"
             />
           </div>
           <div className="mb-4">
@@ -152,7 +144,7 @@ async function getCourseTypes() {
 export async function action({ request, response }) {
   const formData = await request.formData();
   const result = await createCourse(formData);
-  if (result.status !== 200) {
+  if (result.status !== 201) {
     console.log("fail");
     console.log("result data: " + result.data);
   } else {
@@ -163,7 +155,7 @@ export async function action({ request, response }) {
 }
 async function createCourse(formData) {
   let data = Object.fromEntries(formData);
-  const department = JSON.parse(sessionStorage.getItem("auth")).department;
+  const departmentId = JSON.parse(sessionStorage.getItem("auth")).departmentId;
   console.log(data)
   try {
     const response = await axios.post(
@@ -171,7 +163,7 @@ async function createCourse(formData) {
       {
         Name: data.name,
         TypeId: data.type,
-        DepartmentId: department,
+        DepartmentId: departmentId,
         Banner: data.banner,
         Description: data.description,
         Teacher: data.teacher,
@@ -180,8 +172,7 @@ async function createCourse(formData) {
         Schedule: data.schedule,
         NumberOfSessions: data.sessions,
         Location: data.location,
-        SessionHour: data.hour,
-        SessionMinute: data.minute
+        SessionTime: data.time
       },
       {
         headers: {
